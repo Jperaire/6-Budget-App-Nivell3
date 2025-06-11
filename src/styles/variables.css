@@ -1,0 +1,19 @@
+@font-face {
+    font-family: "Montserrat";
+    src: url("../assets/fonts/Montserrat-VariableFont_wght.ttf");
+}
+
+:root {
+    /* Colors */
+    --primary-color: #414242;
+    --secondary-color: #51b589;
+
+    /* Fonts */
+    --primary-font: "Montserrat", sans-serif;
+
+    /* Sizes */
+    --base-size: 12px;
+
+    /* Borders and shadows */
+    --shadow: 5px 5px 4px rgba(0, 0, 0, 0.195);
+}
