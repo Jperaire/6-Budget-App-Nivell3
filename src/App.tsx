@@ -1,9 +1,9 @@
-import TotalBudget from "./components/TotalBudget/TotalBudget.jsx";
+import BudgetPage from "./pages/BudgetPage/BudgetPage.jsx";
 
 const App = () => {
     return (
         <>
-            <TotalBudget />
+            <BudgetPage />
         </>
     );
 };

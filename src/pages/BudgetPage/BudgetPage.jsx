@@ -1,11 +1,10 @@
-import styles from "./TotalBudget.module.css";
-import Service from "../Service/Service.jsx";
-import { services } from "../../data/services.js";
-import Header from "../Header/Header.jsx";
 import { useState, useEffect } from "react";
-import WebOptions from "../WebOptions/WebOptions.jsx";
+import styles from "./BudgetPage.module.css";
+import { services } from "../../data/services.js";
+import Header from "../../components/Header/Header.jsx";
+import Service from "../../components/Service/Service.jsx";
 
-const TotalBudget = () => {
+const BudgetPage = () => {
     const [selections, setSelections] = useState({
         Seo: false,
         Ads: false,
@@ -26,7 +25,12 @@ const TotalBudget = () => {
             }
         });
 
-        if (selections.Web) {
+        if (
+            selections.Web &&
+            pages !== "" &&
+            languages !== "" &&
+            (pages > 1 || languages > 1)
+        ) {
             newTotal += (pages + languages) * 30;
         }
 
@@ -69,22 +73,21 @@ const TotalBudget = () => {
                         />
                     );
                 })}
+                <div className={styles.budget}>
+                    <p className={styles.p}>
+                        Preu pressuposat: <span>{total}€</span>
+                    </p>
+                    <button
+                        type="button"
+                        onClick={resetForm}
+                        className={styles.resetButton}
+                    >
+                        Reiniciar
+                    </button>
+                </div>
             </form>
-
-            <div className={styles.budget}>
-                <p className={styles.p}>
-                    Preu pressuposat: <span>{total}€</span>
-                </p>
-                <button
-                    type="button"
-                    onClick={resetForm}
-                    className={styles.resetButton}
-                >
-                    Reiniciar
-                </button>
-            </div>
         </>
     );
 };
 
-export default TotalBudget;
+export default BudgetPage;

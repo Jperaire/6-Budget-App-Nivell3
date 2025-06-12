@@ -1,13 +1,14 @@
 .container {
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
 }
 
 .budget {
     display: flex;
     flex-direction: column;
     align-items: end;
-    margin-right: 10px;
+    width: 80%;
+
     gap: 10px;
 }
 

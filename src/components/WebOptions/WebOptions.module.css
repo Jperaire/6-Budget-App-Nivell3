@@ -1,29 +1,58 @@
 .options {
+    display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-right: 15px;
 }
 
 .option {
-    gap: 10px;
+    display: flex;
+    justify-content: space-between;
 }
 
-.p {
+.option > div {
     display: flex;
-    gap: 10px;
+    align-items: center;
+    gap: 5px;
+}
+
+.option > div label {
     font-weight: 800;
     font-size: 0.8rem;
 }
 
-.input {
-    width: 30px;
-    height: 20px;
-    text-align: center;
-    font-family: var(--primary-font);
-    font-weight: 500;
-    font-size: 0.9rem;
-}
-
-.img {
+.option > div img {
     width: 15px;
     cursor: pointer;
+}
+
+.counter {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.counter button {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    width: 15px;
+    font-size: 1.1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.counter button:hover {
+    opacity: 0.8;
+}
+
+.counter p {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.error {
+    color: red;
+    font-size: 0.6rem;
 }

@@ -15,7 +15,10 @@ const Service = ({
     };
 
     return (
-        <label htmlFor={service.title} className={styles.container}>
+        <label
+            htmlFor={service.title}
+            className={`${styles.container} ${checked ? styles.selected : ""}`}
+        >
             <div className={styles.info}>
                 <h2>{service.title}</h2>
                 <p>{service.description}</p>
@@ -35,16 +38,17 @@ const Service = ({
                 />
                 <p>Afegir</p>
             </div>
-            <div className={styles.webOptions}>
-                {service.title === "Web" && checked && (
+
+            {service.hasOptions && checked && (
+                <div className={styles.webOptions}>
                     <WebOptions
                         pages={pages}
                         setPages={setPages}
                         languages={languages}
                         setLanguages={setLanguages}
                     />
-                )}
-            </div>
+                </div>
+            )}
         </label>
     );
 };
