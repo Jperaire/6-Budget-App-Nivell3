@@ -1,0 +1,29 @@
+.options {
+    flex-direction: column;
+    gap: 10px;
+}
+
+.option {
+    gap: 10px;
+}
+
+.p {
+    display: flex;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 0.8rem;
+}
+
+.input {
+    width: 30px;
+    height: 20px;
+    text-align: center;
+    font-family: var(--primary-font);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.img {
+    width: 15px;
+    cursor: pointer;
+}
