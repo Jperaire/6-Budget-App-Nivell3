@@ -82,7 +82,7 @@ const BudgetPage = () => {
                         onClick={resetForm}
                         className={styles.resetButton}
                     >
-                        Reiniciar
+                        REINICIA
                     </button>
                 </div>
             </form>

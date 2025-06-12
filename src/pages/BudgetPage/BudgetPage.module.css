@@ -25,7 +25,7 @@ span {
     border: 1px solid transparent;
     box-shadow: var(--shadow);
     border-radius: 10px;
-    padding: 5px;
+    padding: 10px;
     font-size: 0.8rem;
     background-color: var(--secondary-color);
     color: white;
@@ -36,4 +36,8 @@ span {
 
 .resetButton:hover {
     opacity: 0.8;
+}
+
+.resetButton:active {
+    transform: scale(0.9);
 }
