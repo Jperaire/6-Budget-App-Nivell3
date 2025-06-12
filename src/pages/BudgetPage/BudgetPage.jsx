@@ -3,6 +3,7 @@ import styles from "./BudgetPage.module.css";
 import { services } from "../../data/services.js";
 import Header from "../../components/Header/Header.jsx";
 import Service from "../../components/Service/Service.jsx";
+import ResetButton from "../../components/ResetButton/ResetButton.jsx";
 
 const BudgetPage = () => {
     const [selections, setSelections] = useState({
@@ -44,17 +45,6 @@ const BudgetPage = () => {
         }));
     };
 
-    const resetForm = () => {
-        setSelections({
-            Seo: false,
-            Ads: false,
-            Web: false,
-        });
-        setPages(1);
-        setLanguages(1);
-        setTotal(0);
-    };
-
     return (
         <>
             <Header />
@@ -77,14 +67,13 @@ const BudgetPage = () => {
                     <p className={styles.p}>
                         Preu pressuposat: <span>{total}€</span>
                     </p>
-                    <button
-                        type="button"
-                        onClick={resetForm}
-                        className={styles.resetButton}
-                    >
-                        REINICIA
-                    </button>
                 </div>
+                <ResetButton
+                    setLanguages={setLanguages}
+                    setPages={setPages}
+                    setTotal={setTotal}
+                    setSelections={setSelections}
+                />
             </form>
         </>
     );
