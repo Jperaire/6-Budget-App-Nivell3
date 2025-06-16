@@ -61,25 +61,36 @@ const GetBudget = ({
     const [clientPhone, setClientPhone] = useState("");
     const [clientEmail, setClientEmail] = useState("");
 
+    const [error, setError] = useState<string | null>(null);
+
     const handleClick = () => {
-        if (clientEmail && clientName && clientPhone && total) {
-            const newBudget: Budget = {
-                id: new Date(),
-                name: clientName,
-                phone: clientPhone,
-                email: clientEmail,
-                ads: selections.Ads,
-                seo: selections.Seo,
-                web: selections.Web,
-                languages,
-                pages,
-                total,
-            };
-            setBudgets((prev) => [newBudget, ...prev]);
+        if (!clientName || !clientPhone || !clientEmail) {
+            setError("Tots els camps han d'estar omplerts.");
+            return;
         }
+
+        if (total === 0) {
+            setError("Si us plau, selecciona almenys un servei.");
+            return;
+        }
+        const newBudget: Budget = {
+            id: new Date(),
+            name: clientName,
+            phone: clientPhone,
+            email: clientEmail,
+            ads: selections.Ads,
+            seo: selections.Seo,
+            web: selections.Web,
+            languages,
+            pages,
+            total,
+        };
+        setBudgets((prev) => [newBudget, ...prev]);
+
         setClientName("");
         setClientPhone("");
         setClientEmail("");
+        setError(null);
         setTotal(0);
         resetForm({
             setSelections,
@@ -93,6 +104,7 @@ const GetBudget = ({
             <div className={styles.container}>
                 <h2>Demanar pressupost</h2>
 
+                {error && <p className={styles.error}>{error}</p>}
                 <form
                     className={styles.content}
                     onSubmit={(e) => e.preventDefault()}

@@ -13,6 +13,7 @@
 .content input {
     border: 1px solid rgb(227, 225, 225);
     border-radius: 5px;
+    padding: 5px;
     font-size: 0.8rem;
     font-family: var(--primary-font);
     height: 35px;
@@ -28,4 +29,10 @@
     border-radius: 5px;
     font-size: 0.8rem;
     height: 35px;
+}
+
+.error {
+    color: red;
+    margin-bottom: 1rem;
+    font-weight: bold;
 }
