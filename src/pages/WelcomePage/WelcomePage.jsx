@@ -8,9 +8,9 @@ const WelcomePage = () => {
 
     return (
         <div className={`${styles.container} flex-center`}>
-            <h1>Bienvenido a Presupuestador Pro</h1>
-            <p>Calcula el coste de tus servicios digitales en segundos</p>
-            <button onClick={handleClick}>Empezar a calcular</button>
+            <h1>Benvingut a Presupostador Pro</h1>
+            <p>Calcula el cost dels teus serveis digitals en segons</p>
+            <button onClick={handleClick}>Comença a calcular</button>
         </div>
     );
 };
