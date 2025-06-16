@@ -4,6 +4,7 @@ import Service from "../Service/Service.tsx";
 import ResetButton from "../ResetButton/ResetButton.tsx";
 import { useState, useEffect } from "react";
 import { calculateTotal } from "../../utils/calculateTotal.ts";
+import GetBudget from "../GetBudget/GetBudget.tsx";
 
 interface Selections {
     [key: string]: boolean;
@@ -38,26 +39,38 @@ const BudgetForm: React.FC = () => {
     };
 
     return (
-        <form className={`${styles.container} flex-center`}>
-            {services.map((service) => (
-                <Service
-                    key={service.title}
-                    service={service}
-                    onChange={handleChange}
-                    checked={selections[service.title]}
-                    pages={pages}
-                    setPages={setPages}
-                    languages={languages}
-                    setLanguages={setLanguages}
-                />
-            ))}
-            <div className={styles.budget}>
-                <p className={styles.p}>
-                    Preu pressuposat: <span>{total}€</span>
-                </p>
-            </div>
-            <ResetButton />
-        </form>
+        <div className={`${styles.container} flex-center`}>
+            <form>
+                {services.map((service) => (
+                    <Service
+                        key={service.title}
+                        service={service}
+                        onChange={handleChange}
+                        checked={selections[service.title]}
+                        pages={pages}
+                        setPages={setPages}
+                        languages={languages}
+                        setLanguages={setLanguages}
+                    />
+                ))}
+                <div className={styles.budget}>
+                    <p className={styles.p}>
+                        Preu pressuposat: <span>{total}€</span>
+                    </p>
+                </div>
+                <ResetButton />
+            </form>
+            <GetBudget
+                total={total}
+                setTotal={setTotal}
+                pages={pages}
+                languages={languages}
+                selections={selections}
+                setSelections={setSelections}
+                setPages={setPages}
+                setLanguages={setLanguages}
+            />
+        </div>
     );
 };
 

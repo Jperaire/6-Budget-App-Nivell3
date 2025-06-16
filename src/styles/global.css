@@ -21,3 +21,7 @@ body {
 h2 {
     font-size: 1.3rem;
 }
+
+ul {
+    list-style-type: none;
+}
