@@ -1,4 +1,4 @@
-.resetButton {
+.commonButton {
     border: 1px solid transparent;
     box-shadow: var(--shadow);
     border-radius: 10px;
@@ -11,10 +11,10 @@
     cursor: pointer;
 }
 
-.resetButton:hover {
+.commonButton:hover {
     opacity: 0.8;
 }
 
-.resetButton:active {
+.commonButton:active {
     transform: scale(0.9);
 }

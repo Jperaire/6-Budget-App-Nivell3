@@ -1,5 +1,20 @@
-import WebOptions from "../WebOptions/WebOptions";
+import WebOptions from "../WebOptions/WebOptions.tsx";
 import styles from "./Service.module.css";
+
+interface ServiceProps {
+    service: {
+        title: string;
+        description: string;
+        price: number;
+        hasOptions: boolean;
+    };
+    onChange: (serviceTitle: string, checked: boolean) => void;
+    checked: boolean;
+    pages: number;
+    setPages: React.Dispatch<React.SetStateAction<number>>;
+    languages: number;
+    setLanguages: React.Dispatch<React.SetStateAction<number>>;
+}
 
 const Service = ({
     service,
@@ -9,8 +24,8 @@ const Service = ({
     setPages,
     languages,
     setLanguages,
-}) => {
-    const handleCheckbox = (e) => {
+}: ServiceProps) => {
+    const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
         onChange(service.title, e.target.checked);
     };
 

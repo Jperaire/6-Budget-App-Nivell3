@@ -18,10 +18,6 @@ body {
     gap: 40px;
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-}
-input[type="number"] {
-    -moz-appearance: textfield;
+h2 {
+    font-size: 1.3rem;
 }

@@ -1,4 +1,11 @@
-export const services = [
+interface Service {
+    title: string;
+    description: string;
+    price: number;
+    hasOptions: boolean;
+}
+
+export const services: Service[] = [
     {
         title: "Seo",
         description: "Programació d'una web responsive completa",

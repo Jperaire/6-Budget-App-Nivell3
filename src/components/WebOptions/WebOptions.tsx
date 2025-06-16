@@ -1,7 +1,19 @@
 import styles from "./WebOptions.module.css";
 import infoIcon from "../../assets/images/info.png";
 
-const WebOptions = ({ pages, setPages, languages, setLanguages }) => {
+interface WebOptionsProps {
+    pages: number;
+    setPages: React.Dispatch<React.SetStateAction<number>>;
+    languages: number;
+    setLanguages: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const WebOptions = ({
+    pages,
+    setPages,
+    languages,
+    setLanguages,
+}: WebOptionsProps) => {
     return (
         <div className={`${styles.options}`}>
             <div className={`${styles.option}`}>
@@ -29,12 +41,6 @@ const WebOptions = ({ pages, setPages, languages, setLanguages }) => {
                 </div>
             </div>
 
-            {(pages === "" || pages < 1) && (
-                <p className={styles.error}>
-                    Cal indicar un nombre de pàgines vàlid.
-                </p>
-            )}
-
             <div className={`${styles.option}`}>
                 <div>
                     <img src={infoIcon} alt="Information Icon" />
@@ -59,12 +65,6 @@ const WebOptions = ({ pages, setPages, languages, setLanguages }) => {
                     </button>
                 </div>
             </div>
-
-            {(languages === "" || languages < 1) && (
-                <p className={styles.error}>
-                    Cal indicar un nombre de pàgines vàlid.
-                </p>
-            )}
         </div>
     );
 };

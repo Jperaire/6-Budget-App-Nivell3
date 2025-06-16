@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import styles from "./ResetButton.module.css";
+import styles from "../../styles/commonButton.module.css";
 
-const ResetButton = ({ setLanguages, setPages, setTotal, setSelections }) => {
+const ResetButton: React.FC = () => {
     const navigate = useNavigate();
 
     const goHome = () => {
@@ -13,7 +13,7 @@ const ResetButton = ({ setLanguages, setPages, setTotal, setSelections }) => {
             <button
                 type="button"
                 onClick={goHome}
-                className={styles.resetButton}
+                className={styles.commonButton}
             >
                 ENRERE
             </button>
