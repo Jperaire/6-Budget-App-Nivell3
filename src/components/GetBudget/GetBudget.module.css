@@ -8,9 +8,6 @@
 
 .content {
     margin-top: 15px;
-    background-color: rgb(191, 225, 187);
-    display: flex;
-    flex-direction: row-reverse;
 }
 
 .content input {

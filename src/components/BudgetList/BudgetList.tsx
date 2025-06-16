@@ -20,33 +20,35 @@ interface BudgetListProps {
 
 const BudgetList: React.FC<BudgetListProps> = ({ budgets }) => {
     return (
-        <>
-            <h2>Pressupostos en curs:</h2>
+        <div className={styles.container}>
+            <h2 className={styles.h2}>Pressupostos en curs:</h2>
             <FilterBudgets />
-            {budgets.map((budget) => (
-                <div key={budget.id.toString()} className={styles.container}>
-                    <div className={styles.firstCol}>
-                        <h3>{budget.name}</h3>
-                        <p>{budget.email}</p>
-                        <p>{budget.phone}</p>
+            <div className={styles.budgets}>
+                {budgets.map((budget) => (
+                    <div key={budget.id.toString()} className={styles.budget}>
+                        <div className={styles.firstCol}>
+                            <h3>{budget.name}</h3>
+                            <p>{budget.email}</p>
+                            <p>{budget.phone}</p>
+                        </div>
+                        <div className={styles.secondCol}>
+                            <h4>Serveis contractats:</h4>
+                            <ul>
+                                {budget.seo && <li>✓ SEO</li>}
+                                {budget.ads && <li>✓ Ads</li>}
+                                {budget.web && (
+                                    <li>{`✓ Web (${budget.pages} pàgines, ${budget.languages} llenguatges)`}</li>
+                                )}
+                            </ul>
+                        </div>
+                        <div className={styles.thirdCol}>
+                            <h4>Total:</h4>
+                            <p>{budget.total}€</p>
+                        </div>
                     </div>
-                    <div className={styles.secondCol}>
-                        <h4>Serveis contractats:</h4>
-                        <ul>
-                            {budget.seo && <li>✓ SEO</li>}
-                            {budget.ads && <li>✓ Ads</li>}
-                            {budget.web && (
-                                <li>{`✓ Web (${budget.pages} pàgines, ${budget.languages} llenguatges)`}</li>
-                            )}
-                        </ul>
-                    </div>
-                    <div className={styles.thirdCol}>
-                        <h4>Total:</h4>
-                        <p>{budget.total}€</p>
-                    </div>
-                </div>
-            ))}
-        </>
+                ))}
+            </div>
+        </div>
     );
 };
 

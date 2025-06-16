@@ -42,7 +42,20 @@ const GetBudget = ({
     selections,
     setSelections,
 }: GetBudgetProps) => {
-    const [budgets, setBudgets] = useState<Budget[]>([]);
+    const [budgets, setBudgets] = useState<Budget[]>([
+        {
+            id: new Date(),
+            name: "Ona Costa",
+            phone: "666777888",
+            email: "onacosta@gmail.com",
+            ads: true,
+            seo: true,
+            web: true,
+            languages: 5,
+            pages: 3,
+            total: 1440,
+        },
+    ]);
 
     const [clientName, setClientName] = useState("");
     const [clientPhone, setClientPhone] = useState("");
