@@ -1,5 +1,6 @@
 import styles from "./WebOptions.module.css";
-import infoIcon from "../../assets/images/info.png";
+import InfoModal from "../InfoModal/InfoModal";
+import { information } from "../../data/information";
 
 interface WebOptionsProps {
     pages: number;
@@ -15,10 +16,13 @@ const WebOptions = ({
     setLanguages,
 }: WebOptionsProps) => {
     return (
-        <div className={`${styles.options}`}>
-            <div className={`${styles.option}`}>
+        <div className={styles.options}>
+            <div className={styles.option}>
                 <div>
-                    <img src={infoIcon} alt="Information Icon" />
+                    <InfoModal
+                        modalTitle={information[1].title}
+                        modalContent={information[1].description}
+                    />
                     <label>Nombre de pàgines: </label>
                 </div>
 
@@ -41,9 +45,12 @@ const WebOptions = ({
                 </div>
             </div>
 
-            <div className={`${styles.option}`}>
+            <div className={styles.option}>
                 <div>
-                    <img src={infoIcon} alt="Information Icon" />
+                    <InfoModal
+                        modalTitle={information[0].title}
+                        modalContent={information[0].description}
+                    />
                     <label>Nombre de llenguatges:</label>
                 </div>
 

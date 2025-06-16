@@ -1,5 +1,5 @@
 import styles from "./GetBudget.module.css";
-import button from "../../styles/commonButton.module.css";
+import button from "../../styles/CommonButton/commonButton.module.css";
 import { useState } from "react";
 import BudgetList from "../BudgetList/BudgetList.tsx";
 import { resetForm } from "../../utils/resetForm.ts";

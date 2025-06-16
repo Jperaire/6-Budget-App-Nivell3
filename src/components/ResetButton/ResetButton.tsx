@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import styles from "../../styles/commonButton.module.css";
+import styles from "../../styles/CommonButton/commonButton.module.css";
 
 const ResetButton: React.FC = () => {
     const navigate = useNavigate();

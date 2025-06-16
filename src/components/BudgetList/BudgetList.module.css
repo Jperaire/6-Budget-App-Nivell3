@@ -15,16 +15,8 @@
     box-shadow: var(--shadow);
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     align-items: center;
-}
-
-.h2 {
-    font-size: 1rem;
-}
-
-.firstCol h3 {
-    font-size: 1.4rem;
 }
 
 .firstCol p {
@@ -33,10 +25,6 @@
 
 .secondCol {
     margin-left: 50px;
-}
-
-.secondCol ul {
-    margin-top: 5px;
 }
 
 .thirdCol {

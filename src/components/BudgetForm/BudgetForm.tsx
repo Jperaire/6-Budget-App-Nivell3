@@ -40,6 +40,7 @@ const BudgetForm: React.FC = () => {
 
     return (
         <div className={`${styles.container} flex-center`}>
+            <ResetButton />
             <form>
                 {services.map((service) => (
                     <Service
@@ -58,7 +59,6 @@ const BudgetForm: React.FC = () => {
                         Preu pressuposat: <span>{total}€</span>
                     </p>
                 </div>
-                <ResetButton />
             </form>
             <GetBudget
                 total={total}

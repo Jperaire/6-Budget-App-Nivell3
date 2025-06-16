@@ -1,0 +1,32 @@
+.modalContent {
+    height: 35vh;
+    width: 50vw;
+    min-width: 200px;
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    padding: 10px;
+}
+
+.modalContent h5 {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.modalContent div {
+    font-size: 0.8rem;
+}
+
+.infoIcon {
+    width: 15px;
+    cursor: pointer;
+}
+
+.closeBtn {
+    width: 1px;
+}
