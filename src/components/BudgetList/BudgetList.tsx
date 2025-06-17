@@ -17,15 +17,21 @@ interface Budget {
 interface BudgetListProps {
     budgets: Budget[];
     onSortByDate: () => void;
-    onSortByName: () => void;
+    onSortByImport: () => void;
     onReset: () => void;
+    sortBy: "date" | "import" | null;
+    search: string;
+    setSearch: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const BudgetList: React.FC<BudgetListProps> = ({
     budgets,
     onSortByDate,
-    onSortByName,
+    onSortByImport,
     onReset,
+    sortBy,
+    search,
+    setSearch,
 }) => {
     return (
         <div className={styles.container}>
@@ -33,8 +39,11 @@ const BudgetList: React.FC<BudgetListProps> = ({
 
             <FilterBudgets
                 onSortByDate={onSortByDate}
-                onSortByName={onSortByName}
+                onSortByImport={onSortByImport}
                 onReset={onReset}
+                sortBy={sortBy}
+                search={search}
+                setSearch={setSearch}
             />
 
             <div className={styles.budgets}>

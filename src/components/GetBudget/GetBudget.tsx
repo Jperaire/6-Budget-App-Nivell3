@@ -1,8 +1,8 @@
-import styles from "./GetBudget.module.css";
-import button from "../../styles/CommonButton/commonButton.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BudgetList from "../BudgetList/BudgetList.tsx";
 import { resetForm } from "../../utils/resetForm.ts";
+import styles from "./GetBudget.module.css";
+import button from "../../styles/CommonButton/commonButton.module.css";
 
 interface Budget {
     id: Date;
@@ -57,35 +57,52 @@ const GetBudget = ({
         },
     ]);
 
-    const [originalBudgets, setOriginalBudgets] = useState<Budget[]>([]);
-
-    useEffect(() => {
-        setOriginalBudgets(budgets);
-    }, []);
-
-    const handleSortByName = () => {
-        const sorted = [...budgets].sort((a, b) =>
-            a.name.localeCompare(b.name)
-        );
-        setBudgets(sorted);
-    };
-
-    const handleSortByDate = () => {
-        const sorted = [...budgets].sort(
-            (a, b) => new Date(b.id).getTime() - new Date(a.id).getTime()
-        );
-        setBudgets(sorted);
-    };
-
-    const handleResetOrder = () => {
-        setBudgets([...originalBudgets]);
-    };
-
     const [clientName, setClientName] = useState("");
     const [clientPhone, setClientPhone] = useState("");
     const [clientEmail, setClientEmail] = useState("");
-
     const [error, setError] = useState<string | null>(null);
+    const [sortBy, setSortBy] = useState<"date" | "import" | null>(null);
+
+    const [search, setSearch] = useState("");
+
+    const handleSortByImport = () => {
+        setSortBy("import");
+    };
+
+    const handleSortByDate = () => {
+        setSortBy("date");
+    };
+
+    const handleResetOrder = () => {
+        setSortBy(null);
+    };
+
+    const getVisibleBudgets = () => {
+        let filtered = budgets;
+
+        if (search.trim()) {
+            const searchLower = search.toLowerCase();
+            filtered = filtered.filter(
+                (budget) =>
+                    budget.name.toLowerCase().includes(searchLower) ||
+                    budget.email.toLowerCase().includes(searchLower) ||
+                    budget.phone.toLowerCase().includes(searchLower)
+            );
+        }
+
+        if (sortBy === "import") {
+            filtered = filtered.slice().sort((a, b) => a.total - b.total);
+        } else if (sortBy === "date") {
+            filtered = filtered
+                .slice()
+                .sort(
+                    (a, b) =>
+                        new Date(b.id).getTime() - new Date(a.id).getTime()
+                );
+        }
+
+        return filtered;
+    };
 
     const handleClick = () => {
         if (!clientName || !clientPhone || !clientEmail) {
@@ -97,6 +114,7 @@ const GetBudget = ({
             setError("Si us plau, selecciona almenys un servei.");
             return;
         }
+
         const newBudget: Budget = {
             id: new Date(),
             name: clientName,
@@ -109,8 +127,8 @@ const GetBudget = ({
             pages,
             total,
         };
-        setBudgets((prev) => [newBudget, ...prev]);
 
+        setBudgets((prev) => [newBudget, ...prev]);
         setClientName("");
         setClientPhone("");
         setClientEmail("");
@@ -123,11 +141,20 @@ const GetBudget = ({
             setTotal,
         });
     };
+
+    const sortedBudgets = [...budgets].sort((a, b) => {
+        if (sortBy === "import") {
+            return a.total - b.total;
+        } else if (sortBy === "date") {
+            return new Date(b.id).getTime() - new Date(a.id).getTime();
+        }
+        return 0;
+    });
+
     return (
         <>
             <div className={styles.container}>
                 <h2>Demanar pressupost</h2>
-
                 {error && <p className={styles.error}>{error}</p>}
                 <form
                     className={styles.content}
@@ -140,7 +167,6 @@ const GetBudget = ({
                         onChange={(e) => setClientName(e.target.value)}
                         value={clientName}
                     />
-
                     <input
                         type="text"
                         id="clientPhone"
@@ -155,7 +181,6 @@ const GetBudget = ({
                         onChange={(e) => setClientEmail(e.target.value)}
                         value={clientEmail}
                     />
-
                     <button
                         type="button"
                         className={button.commonButton}
@@ -166,10 +191,13 @@ const GetBudget = ({
                 </form>
             </div>
             <BudgetList
-                budgets={budgets}
+                budgets={getVisibleBudgets()}
                 onSortByDate={handleSortByDate}
-                onSortByName={handleSortByName}
+                onSortByImport={handleSortByImport}
                 onReset={handleResetOrder}
+                sortBy={sortBy}
+                search={search}
+                setSearch={setSearch}
             />
         </>
     );
