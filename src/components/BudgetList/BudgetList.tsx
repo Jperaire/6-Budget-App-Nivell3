@@ -16,13 +16,27 @@ interface Budget {
 
 interface BudgetListProps {
     budgets: Budget[];
+    onSortByDate: () => void;
+    onSortByName: () => void;
+    onReset: () => void;
 }
 
-const BudgetList: React.FC<BudgetListProps> = ({ budgets }) => {
+const BudgetList: React.FC<BudgetListProps> = ({
+    budgets,
+    onSortByDate,
+    onSortByName,
+    onReset,
+}) => {
     return (
         <div className={styles.container}>
             <h2 className={styles.h2}>Pressupostos en curs:</h2>
-            <FilterBudgets />
+
+            <FilterBudgets
+                onSortByDate={onSortByDate}
+                onSortByName={onSortByName}
+                onReset={onReset}
+            />
+
             <div className={styles.budgets}>
                 {budgets.map((budget) => (
                     <div key={budget.id.toString()} className={styles.budget}>

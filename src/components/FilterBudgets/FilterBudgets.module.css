@@ -1,3 +1,21 @@
 .container {
-    text-align: end;
+    display: flex;
+    gap: 15px;
+    justify-content: end;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.button {
+    border: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: grey;
+}
+
+.button:hover {
+    color: black;
 }

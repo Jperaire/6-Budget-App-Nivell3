@@ -1,6 +1,6 @@
 import styles from "./GetBudget.module.css";
 import button from "../../styles/CommonButton/commonButton.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BudgetList from "../BudgetList/BudgetList.tsx";
 import { resetForm } from "../../utils/resetForm.ts";
 
@@ -56,6 +56,30 @@ const GetBudget = ({
             total: 1440,
         },
     ]);
+
+    const [originalBudgets, setOriginalBudgets] = useState<Budget[]>([]);
+
+    useEffect(() => {
+        setOriginalBudgets(budgets);
+    }, []);
+
+    const handleSortByName = () => {
+        const sorted = [...budgets].sort((a, b) =>
+            a.name.localeCompare(b.name)
+        );
+        setBudgets(sorted);
+    };
+
+    const handleSortByDate = () => {
+        const sorted = [...budgets].sort(
+            (a, b) => new Date(b.id).getTime() - new Date(a.id).getTime()
+        );
+        setBudgets(sorted);
+    };
+
+    const handleResetOrder = () => {
+        setBudgets([...originalBudgets]);
+    };
 
     const [clientName, setClientName] = useState("");
     const [clientPhone, setClientPhone] = useState("");
@@ -141,7 +165,12 @@ const GetBudget = ({
                     </button>
                 </form>
             </div>
-            <BudgetList budgets={budgets} />
+            <BudgetList
+                budgets={budgets}
+                onSortByDate={handleSortByDate}
+                onSortByName={handleSortByName}
+                onReset={handleResetOrder}
+            />
         </>
     );
 };

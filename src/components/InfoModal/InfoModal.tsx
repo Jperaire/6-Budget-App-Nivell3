@@ -40,12 +40,6 @@ const InfoModal = ({ modalTitle, modalContent }: ModalProps) => {
                             {modalTitle}
                         </h5>
                         <div>{modalContent}</div>
-                        <button
-                            type="button"
-                            className={`btn-close ${styles.closeBtn}`}
-                            data-bs-dismiss="modal"
-                            aria-label="Tancar"
-                        ></button>
                     </div>
                 </div>
             </div>
