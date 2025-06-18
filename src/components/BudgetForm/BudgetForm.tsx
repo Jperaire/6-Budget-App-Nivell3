@@ -1,10 +1,10 @@
 import styles from "./BudgetForm.module.css";
 import { services } from "../../data/services.ts";
 import Service from "../Service/Service.tsx";
-import ResetButton from "../ResetButton/ResetButton.tsx";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { calculateTotal } from "../../utils/calculateTotal.ts";
 import GetBudget from "../GetBudget/GetBudget.tsx";
+import { DiscountContext } from "../../context/DiscountContext/DiscountContext";
 
 interface Selections {
     [key: string]: boolean;
@@ -18,6 +18,7 @@ const BudgetForm: React.FC = () => {
     });
 
     const [total, setTotal] = useState<number>(0);
+    const { isDiscountActive } = useContext(DiscountContext);
     const [pages, setPages] = useState<number>(1);
     const [languages, setLanguages] = useState<number>(1);
 
@@ -27,9 +28,10 @@ const BudgetForm: React.FC = () => {
             pages,
             languages,
             services,
+            isDiscountActive,
         });
         setTotal(newTotal);
-    }, [selections, pages, languages]);
+    }, [selections, pages, languages, isDiscountActive]);
 
     const handleChange = (serviceTitle: string, checked: boolean) => {
         setSelections((prevSelections) => ({
@@ -40,7 +42,6 @@ const BudgetForm: React.FC = () => {
 
     return (
         <div className={`${styles.container} flex-center`}>
-            <ResetButton />
             <form>
                 {services.map((service) => (
                     <Service
@@ -52,6 +53,7 @@ const BudgetForm: React.FC = () => {
                         setPages={setPages}
                         languages={languages}
                         setLanguages={setLanguages}
+                        isDiscountActive={isDiscountActive}
                     />
                 ))}
                 <div className={styles.budget}>

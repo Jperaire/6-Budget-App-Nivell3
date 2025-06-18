@@ -1,3 +1,4 @@
+import { calculateDiscountedPrice } from "../../utils/calculateDiscountPrice.ts";
 import WebOptions from "../WebOptions/WebOptions.tsx";
 import styles from "./Service.module.css";
 
@@ -14,6 +15,7 @@ interface ServiceProps {
     setPages: React.Dispatch<React.SetStateAction<number>>;
     languages: number;
     setLanguages: React.Dispatch<React.SetStateAction<number>>;
+    isDiscountActive: boolean;
 }
 
 const Service = ({
@@ -24,10 +26,15 @@ const Service = ({
     setPages,
     languages,
     setLanguages,
+    isDiscountActive,
 }: ServiceProps) => {
     const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
         onChange(service.title, e.target.checked);
     };
+
+    const newPrice = isDiscountActive
+        ? calculateDiscountedPrice(service.price, 0.2)
+        : service.price;
 
     return (
         <label
@@ -40,7 +47,10 @@ const Service = ({
             </div>
 
             <div className={`${styles.price} flex-center`}>
-                {service.price} €
+                {isDiscountActive && (
+                    <p className={styles.discountMsg}>20% aplicat!</p>
+                )}
+                <div>{newPrice} €</div>
             </div>
 
             <div className={`${styles.inputDiv} flex-center`}>

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import styles from "../../styles/CommonButton/commonButton.module.css";
+import homeImg from "../../assets/images/home.png";
+import styles from "./ResetButton.module.css";
 
 const ResetButton: React.FC = () => {
     const navigate = useNavigate();
@@ -10,12 +11,12 @@ const ResetButton: React.FC = () => {
 
     return (
         <>
-            <button
-                type="button"
-                onClick={goHome}
-                className={styles.commonButton}
-            >
-                ENRERE
+            <button type="button" onClick={goHome} className={styles.button}>
+                <img
+                    src={homeImg}
+                    alt="Botón para volver a home"
+                    className={styles.homeImg}
+                />
             </button>
         </>
     );
