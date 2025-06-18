@@ -62,7 +62,6 @@ const GetBudget = ({
     const [clientEmail, setClientEmail] = useState("");
     const [error, setError] = useState<string | null>(null);
     const [sortBy, setSortBy] = useState<"date" | "import" | null>(null);
-
     const [search, setSearch] = useState("");
 
     const handleSortByImport = () => {
@@ -141,15 +140,6 @@ const GetBudget = ({
             setTotal,
         });
     };
-
-    const sortedBudgets = [...budgets].sort((a, b) => {
-        if (sortBy === "import") {
-            return a.total - b.total;
-        } else if (sortBy === "date") {
-            return new Date(b.id).getTime() - new Date(a.id).getTime();
-        }
-        return 0;
-    });
 
     return (
         <>
