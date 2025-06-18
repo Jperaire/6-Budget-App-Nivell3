@@ -36,7 +36,7 @@ const FilterBudgets = ({
                     }`}
                     onClick={onSortByDate}
                 >
-                    Data
+                    DATA
                 </button>
                 <button
                     className={`${styles.button} ${
@@ -44,7 +44,7 @@ const FilterBudgets = ({
                     }`}
                     onClick={onSortByImport}
                 >
-                    Import
+                    IMPORT
                 </button>
                 <button
                     className={`${styles.button} ${
@@ -52,7 +52,7 @@ const FilterBudgets = ({
                     }`}
                     onClick={onReset}
                 >
-                    Reinicia
+                    REINICIA
                 </button>
             </div>
         </div>

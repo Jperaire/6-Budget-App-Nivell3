@@ -11,7 +11,7 @@
 }
 
 .discountMsg {
-    color: red;
+    color: var(--error-style);
     font-weight: 600;
     margin: auto;
 }
