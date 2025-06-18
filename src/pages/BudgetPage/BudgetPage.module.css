@@ -1,0 +1,7 @@
+.footer {
+    width: 100%;
+    padding: 20px 5px;
+    background-image: url("../../assets/images/banner.jpg");
+    text-align: center;
+    color: white;
+}

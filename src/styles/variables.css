@@ -7,6 +7,7 @@
     /* Colors */
     --primary-color: #414242;
     --secondary-color: #51b589;
+    --text-muted: grey;
 
     /* Fonts */
     --primary-font: "Montserrat", sans-serif;
@@ -16,4 +17,5 @@
 
     /* Borders and shadows */
     --shadow: 5px 5px 4px rgba(0, 0, 0, 0.195);
+    --border-color: rgb(227, 225, 225);
 }
