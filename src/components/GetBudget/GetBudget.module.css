@@ -1,5 +1,5 @@
 .container {
-    border: 1px solid rgb(227, 225, 225);
+    border: 1px solid var(--border-color);
     border-radius: 15px;
     padding: 30px 15px;
     box-shadow: var(--shadow);
@@ -11,7 +11,7 @@
 }
 
 .content input {
-    border: 1px solid rgb(227, 225, 225);
+    border: 1px solid var(--border-color);
     border-radius: 5px;
     padding: 5px;
     font-size: 0.8rem;

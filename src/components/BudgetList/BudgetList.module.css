@@ -7,32 +7,3 @@
     flex-direction: column;
     gap: 10px;
 }
-
-.budget {
-    border: 1px solid rgb(227, 225, 225);
-    border-radius: 15px;
-    padding: 30px 15px;
-    box-shadow: var(--shadow);
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    font-size: 0.8rem;
-    align-items: center;
-}
-
-.firstCol p {
-    color: grey;
-}
-
-.secondCol {
-    margin-left: 50px;
-}
-
-.thirdCol {
-    text-align: end;
-    margin-right: 10px;
-}
-
-.thirdCol p {
-    font-size: 1.4rem;
-    font-weight: 700;
-}

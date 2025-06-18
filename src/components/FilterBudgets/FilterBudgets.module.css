@@ -14,7 +14,7 @@
     border: none;
     font-size: 0.8rem;
     font-weight: 600;
-    color: grey;
+    color: var(--text-muted);
 }
 
 .button:hover {
@@ -28,7 +28,7 @@
 
 .search {
     width: 150px;
-    border: 1px solid grey;
+    border: 1px solid var(--text-muted);
     border-radius: 3px;
     padding: 0px 5px;
 }

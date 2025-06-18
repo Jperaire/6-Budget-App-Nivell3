@@ -1,0 +1,937 @@
+.container {
+    width: 100%;
+}
+
+.budgets {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.budget {
+    border: 1px solid var( --border-color);
+    border-radius: 15px;
+    padding: 30px 15px;
+    box-shadow: var(--shadow);
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    font-size: 0.8rem;
+    align-items: center;
+}
+
+.firstCol p {
+    color: var(--text-muted);
+}
+
+.secondCol {
+    margin-left: 50px;
+}
+
+.thirdCol {
+    text-align: end;
+    margin-right: 10px;
+}
+
+.thirdCol p {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+import styles from "./BudgetList.module.css";
+import FilterBudgets from "../FilterBudgets/FilterBudgets";
+
+interface Budget {
+    id: Date;
+    name: string;
+    phone: string;
+    email: string;
+    total: number;
+    seo: boolean;
+    ads: boolean;
+    web: boolean;
+    pages: number;
+    languages: number;
+}
+
+interface BudgetListProps {
+    budgets: Budget[];
+    onSortByDate: () => void;
+    onSortByImport: () => void;
+    onReset: () => void;
+    sortBy: "date" | "import" | null;
+    search: string;
+    setSearch: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const BudgetList: React.FC<BudgetListProps> = ({
+    budgets,
+    onSortByDate,
+    onSortByImport,
+    onReset,
+    sortBy,
+    search,
+    setSearch,
+}) => {
+    return (
+        <div className={styles.container}>
+            <h2 className={styles.h2}>Pressupostos en curs:</h2>
+
+            <FilterBudgets
+                onSortByDate={onSortByDate}
+                onSortByImport={onSortByImport}
+                onReset={onReset}
+                sortBy={sortBy}
+                search={search}
+                setSearch={setSearch}
+            />
+
+            <div className={styles.budgets}>
+                {budgets.map((budget) => (
+                    <div key={budget.id.toString()} className={styles.budget}>
+                        <div className={styles.firstCol}>
+                            <h3>{budget.name}</h3>
+                            <p>{budget.email}</p>
+                            <p>{budget.phone}</p>
+                        </div>
+                        <div className={styles.secondCol}>
+                            <h4>Serveis contractats:</h4>
+                            <ul>
+                                {budget.seo && <li>✓ SEO</li>}
+                                {budget.ads && <li>✓ Ads</li>}
+                                {budget.web && (
+                                    <li>{`✓ Web (${budget.pages} pàgines, ${budget.languages} llenguatges)`}</li>
+                                )}
+                            </ul>
+                        </div>
+                        <div className={styles.thirdCol}>
+                            <h4>Total:</h4>
+                            <p>{budget.total}€</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
+
+export default BudgetList;
+.container {
+    display: flex;
+    gap: 15px;
+    justify-content: end;
+    margin-bottom: 10px;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.button {
+    border: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.button:hover {
+    color: black;
+}
+
+.active {
+    font-weight: 900;
+    color: black;
+}
+
+.search {
+    width: 150px;
+    border: 1px solid var(--text-muted);
+    border-radius: 3px;
+    padding: 0px 5px;
+}
+
+.search input {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+}
+
+.search input:focus {
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
+import styles from "./FilterBudgets.module.css";
+
+interface Props {
+    onSortByDate: () => void;
+    onSortByImport: () => void;
+    onReset: () => void;
+    sortBy: "date" | "import" | null;
+    search: string;
+    setSearch: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const FilterBudgets = ({
+    onSortByDate,
+    onSortByImport,
+    onReset,
+    sortBy,
+    search,
+    setSearch,
+}: Props) => {
+    return (
+        <div className={styles.container}>
+            <div className={styles.search}>
+                <input
+                    type="text"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="Cerca per nom, email o telèfon"
+                    className={styles.input}
+                />
+            </div>
+
+            <div className={styles.buttons}>
+                <button
+                    className={`${styles.button} ${
+                        sortBy === "date" ? styles.active : ""
+                    }`}
+                    onClick={onSortByDate}
+                >
+                    Data
+                </button>
+                <button
+                    className={`${styles.button} ${
+                        sortBy === "import" ? styles.active : ""
+                    }`}
+                    onClick={onSortByImport}
+                >
+                    Import
+                </button>
+                <button
+                    className={`${styles.button} ${
+                        sortBy === null ? styles.active : ""
+                    }`}
+                    onClick={onReset}
+                >
+                    Reinicia
+                </button>
+            </div>
+        </div>
+    );
+};
+
+export default FilterBudgets;
+.container {
+    border: 1px solid var( --border-color);
+    border-radius: 15px;
+    padding: 30px 15px;
+    box-shadow: var(--shadow);
+    width: 100%;
+}
+
+.content {
+    margin-top: 15px;
+}
+
+.content input {
+    border: 1px solid var( --border-color);
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 0.8rem;
+    font-family: var(--primary-font);
+    height: 35px;
+}
+
+.content input::placeholder {
+    color: rgb(193, 192, 192);
+    font-family: var(--primary-font);
+}
+
+.content button {
+    padding: 0px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    height: 35px;
+}
+
+.error {
+    color: red;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+import { useState } from "react";
+import BudgetList from "../BudgetList/BudgetList.tsx";
+import { resetForm } from "../../utils/resetForm.ts";
+import styles from "./GetBudget.module.css";
+import button from "../../styles/CommonButton/commonButton.module.css";
+
+interface Budget {
+    id: Date;
+    name: string;
+    phone: string;
+    email: string;
+    total: number;
+    ads: boolean;
+    seo: boolean;
+    web: boolean;
+    languages: number;
+    pages: number;
+}
+
+interface Selections {
+    [key: string]: boolean;
+}
+
+interface GetBudgetProps {
+    total: number;
+    setTotal: React.Dispatch<React.SetStateAction<number>>;
+    pages: number;
+    setPages: React.Dispatch<React.SetStateAction<number>>;
+    languages: number;
+    setLanguages: React.Dispatch<React.SetStateAction<number>>;
+    selections: Selections;
+    setSelections: React.Dispatch<React.SetStateAction<Selections>>;
+}
+
+const GetBudget = ({
+    total,
+    setTotal,
+    pages,
+    setPages,
+    languages,
+    setLanguages,
+    selections,
+    setSelections,
+}: GetBudgetProps) => {
+    const [budgets, setBudgets] = useState<Budget[]>([
+        {
+            id: new Date(),
+            name: "Ona Costa",
+            phone: "666777888",
+            email: "onacosta@gmail.com",
+            ads: true,
+            seo: true,
+            web: true,
+            languages: 5,
+            pages: 3,
+            total: 1440,
+        },
+    ]);
+
+    const [clientName, setClientName] = useState("");
+    const [clientPhone, setClientPhone] = useState("");
+    const [clientEmail, setClientEmail] = useState("");
+    const [error, setError] = useState<string | null>(null);
+    const [sortBy, setSortBy] = useState<"date" | "import" | null>(null);
+
+    const [search, setSearch] = useState("");
+
+    const handleSortByImport = () => {
+        setSortBy("import");
+    };
+
+    const handleSortByDate = () => {
+        setSortBy("date");
+    };
+
+    const handleResetOrder = () => {
+        setSortBy(null);
+    };
+
+    const getVisibleBudgets = () => {
+        let filtered = budgets;
+
+        if (search.trim()) {
+            const searchLower = search.toLowerCase();
+            filtered = filtered.filter(
+                (budget) =>
+                    budget.name.toLowerCase().includes(searchLower) ||
+                    budget.email.toLowerCase().includes(searchLower) ||
+                    budget.phone.toLowerCase().includes(searchLower)
+            );
+        }
+
+        if (sortBy === "import") {
+            filtered = filtered.slice().sort((a, b) => a.total - b.total);
+        } else if (sortBy === "date") {
+            filtered = filtered
+                .slice()
+                .sort(
+                    (a, b) =>
+                        new Date(b.id).getTime() - new Date(a.id).getTime()
+                );
+        }
+
+        return filtered;
+    };
+
+    const handleClick = () => {
+        if (!clientName || !clientPhone || !clientEmail) {
+            setError("Tots els camps han d'estar omplerts.");
+            return;
+        }
+
+        if (total === 0) {
+            setError("Si us plau, selecciona almenys un servei.");
+            return;
+        }
+
+        const newBudget: Budget = {
+            id: new Date(),
+            name: clientName,
+            phone: clientPhone,
+            email: clientEmail,
+            ads: selections.Ads,
+            seo: selections.Seo,
+            web: selections.Web,
+            languages,
+            pages,
+            total,
+        };
+
+        setBudgets((prev) => [newBudget, ...prev]);
+        setClientName("");
+        setClientPhone("");
+        setClientEmail("");
+        setError(null);
+        setTotal(0);
+        resetForm({
+            setSelections,
+            setPages,
+            setLanguages,
+            setTotal,
+        });
+    };
+
+    const sortedBudgets = [...budgets].sort((a, b) => {
+        if (sortBy === "import") {
+            return a.total - b.total;
+        } else if (sortBy === "date") {
+            return new Date(b.id).getTime() - new Date(a.id).getTime();
+        }
+        return 0;
+    });
+
+    return (
+        <>
+            <div className={styles.container}>
+                <h2>Demanar pressupost</h2>
+                {error && <p className={styles.error}>{error}</p>}
+                <form
+                    className={styles.content}
+                    onSubmit={(e) => e.preventDefault()}
+                >
+                    <input
+                        type="text"
+                        id="clientName"
+                        placeholder="Nom"
+                        onChange={(e) => setClientName(e.target.value)}
+                        value={clientName}
+                    />
+                    <input
+                        type="text"
+                        id="clientPhone"
+                        placeholder="Teléfon"
+                        value={clientPhone}
+                        onChange={(e) => setClientPhone(e.target.value)}
+                    />
+                    <input
+                        type="email"
+                        id="clientEmail"
+                        placeholder="Email"
+                        onChange={(e) => setClientEmail(e.target.value)}
+                        value={clientEmail}
+                    />
+                    <button
+                        type="button"
+                        className={button.commonButton}
+                        onClick={handleClick}
+                    >
+                        Sol·licitar pressupost →
+                    </button>
+                </form>
+            </div>
+            <BudgetList
+                budgets={getVisibleBudgets()}
+                onSortByDate={handleSortByDate}
+                onSortByImport={handleSortByImport}
+                onReset={handleResetOrder}
+                sortBy={sortBy}
+                search={search}
+                setSearch={setSearch}
+            />
+        </>
+    );
+};
+
+export default GetBudget;
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-right: 15px;
+}
+
+.option {
+    display: flex;
+    justify-content: space-between;
+}
+
+.option > div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.option > div label {
+    font-weight: 800;
+    font-size: 0.8rem;
+}
+
+.counter {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.counter button {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    width: 15px;
+    font-size: 1.1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.counter button:hover {
+    opacity: 0.8;
+}
+
+.counter p {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+import styles from "./WebOptions.module.css";
+import InfoModal from "../InfoModal/InfoModal";
+import { information } from "../../data/information";
+
+interface WebOptionsProps {
+    pages: number;
+    setPages: React.Dispatch<React.SetStateAction<number>>;
+    languages: number;
+    setLanguages: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const WebOptions = ({
+    pages,
+    setPages,
+    languages,
+    setLanguages,
+}: WebOptionsProps) => {
+    return (
+        <div className={styles.options}>
+            <div className={styles.option}>
+                <div>
+                    <InfoModal
+                        modalTitle={information[1].title}
+                        modalContent={information[1].description}
+                    />
+                    <label>Nombre de pàgines: </label>
+                </div>
+
+                <div className={styles.counter}>
+                    <button
+                        type="button"
+                        onClick={() =>
+                            setPages((prev) => Math.max(1, prev - 1))
+                        }
+                    >
+                        -
+                    </button>
+                    <p>{pages}</p>
+                    <button
+                        type="button"
+                        onClick={() => setPages((prev) => prev + 1)}
+                    >
+                        +
+                    </button>
+                </div>
+            </div>
+
+            <div className={styles.option}>
+                <div>
+                    <InfoModal
+                        modalTitle={information[0].title}
+                        modalContent={information[0].description}
+                    />
+                    <label>Nombre de llenguatges:</label>
+                </div>
+
+                <div className={styles.counter}>
+                    <button
+                        type="button"
+                        onClick={() =>
+                            setLanguages((prev) => Math.max(1, prev - 1))
+                        }
+                    >
+                        -
+                    </button>
+                    <p>{languages}</p>
+                    <button
+                        type="button"
+                        onClick={() => setLanguages((prev) => prev + 1)}
+                    >
+                        +
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default WebOptions;
+.modalContent {
+    height: 35vh;
+    width: 50vw;
+    min-width: 200px;
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    padding: 10px;
+}
+
+.modalContent h5 {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.modalContent div {
+    font-size: 0.8rem;
+}
+
+.infoIcon {
+    width: 15px;
+    cursor: pointer;
+}
+import { useId } from "react";
+import infoIcon from "../../assets/images/info.png";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import styles from "./InfoModal.module.css";
+
+interface ModalProps {
+    modalTitle: string;
+    modalContent: string;
+}
+
+const InfoModal = ({ modalTitle, modalContent }: ModalProps) => {
+    const modalId = useId();
+
+    return (
+        <>
+            <button
+                type="button"
+                className="btn btn-link p-0 border-0"
+                data-bs-toggle="modal"
+                data-bs-target={`#${modalId}`}
+            >
+                <img
+                    src={infoIcon}
+                    alt="Information Icon"
+                    className={styles.infoIcon}
+                />
+            </button>
+
+            <div
+                className="modal fade"
+                id={modalId}
+                tabIndex={-1}
+                aria-labelledby={`${modalId}Label`}
+                aria-hidden="true"
+            >
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className={`modal-content ${styles.modalContent}`}>
+                        <h5 className="modal-title" id={`${modalId}Label`}>
+                            {modalTitle}
+                        </h5>
+                        <div>{modalContent}</div>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+};
+
+export default InfoModal;
+import { useNavigate } from "react-router-dom";
+import styles from "../../styles/CommonButton/commonButton.module.css";
+
+const ResetButton: React.FC = () => {
+    const navigate = useNavigate();
+
+    const goHome = () => {
+        navigate("/");
+    };
+
+    return (
+        <>
+            <button
+                type="button"
+                onClick={goHome}
+                className={styles.commonButton}
+            >
+                ENRERE
+            </button>
+        </>
+    );
+};
+
+export default ResetButton;
+import styles from "./BudgetForm.module.css";
+import { services } from "../../data/services.ts";
+import Service from "../Service/Service.tsx";
+import ResetButton from "../ResetButton/ResetButton.tsx";
+import { useState, useEffect } from "react";
+import { calculateTotal } from "../../utils/calculateTotal.ts";
+import GetBudget from "../GetBudget/GetBudget.tsx";
+
+interface Selections {
+    [key: string]: boolean;
+}
+
+const BudgetForm: React.FC = () => {
+    const [selections, setSelections] = useState<Selections>({
+        Seo: false,
+        Ads: false,
+        Web: false,
+    });
+
+    const [total, setTotal] = useState<number>(0);
+    const [pages, setPages] = useState<number>(1);
+    const [languages, setLanguages] = useState<number>(1);
+
+    useEffect(() => {
+        const newTotal = calculateTotal({
+            selections,
+            pages,
+            languages,
+            services,
+        });
+        setTotal(newTotal);
+    }, [selections, pages, languages]);
+
+    const handleChange = (serviceTitle: string, checked: boolean) => {
+        setSelections((prevSelections) => ({
+            ...prevSelections,
+            [serviceTitle]: checked,
+        }));
+    };
+
+    return (
+        <div className={`${styles.container} flex-center`}>
+            <ResetButton />
+            <form>
+                {services.map((service) => (
+                    <Service
+                        key={service.title}
+                        service={service}
+                        onChange={handleChange}
+                        checked={selections[service.title]}
+                        pages={pages}
+                        setPages={setPages}
+                        languages={languages}
+                        setLanguages={setLanguages}
+                    />
+                ))}
+                <div className={styles.budget}>
+                    <p className={styles.p}>
+                        Preu pressuposat: <span>{total}€</span>
+                    </p>
+                </div>
+            </form>
+            <GetBudget
+                total={total}
+                setTotal={setTotal}
+                pages={pages}
+                languages={languages}
+                selections={selections}
+                setSelections={setSelections}
+                setPages={setPages}
+                setLanguages={setLanguages}
+            />
+        </div>
+    );
+};
+
+export default BudgetForm;
+.container {
+    flex-direction: column;
+    gap: 50px;
+    width: 80%;
+    max-width: 550px;
+    margin: auto;
+}
+
+.container form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.budget {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 10px;
+}
+
+.p {
+    font-weight: 600;
+}
+
+span {
+    font-weight: 800;
+    font-size: 1.5rem;
+}
+import WebOptions from "../WebOptions/WebOptions.tsx";
+import styles from "./Service.module.css";
+
+interface ServiceProps {
+    service: {
+        title: string;
+        description: string;
+        price: number;
+        hasOptions: boolean;
+    };
+    onChange: (serviceTitle: string, checked: boolean) => void;
+    checked: boolean;
+    pages: number;
+    setPages: React.Dispatch<React.SetStateAction<number>>;
+    languages: number;
+    setLanguages: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const Service = ({
+    service,
+    onChange,
+    checked,
+    pages,
+    setPages,
+    languages,
+    setLanguages,
+}: ServiceProps) => {
+    const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
+        onChange(service.title, e.target.checked);
+    };
+
+    return (
+        <label
+            htmlFor={service.title}
+            className={`${styles.container} ${checked ? styles.selected : ""}`}
+        >
+            <div className={styles.info}>
+                <h2>{service.title}</h2>
+                <p>{service.description}</p>
+            </div>
+
+            <div className={`${styles.price} flex-center`}>
+                {service.price} €
+            </div>
+
+            <div className={`${styles.inputDiv} flex-center`}>
+                <input
+                    type="checkbox"
+                    id={service.title}
+                    className={styles.input}
+                    onChange={handleCheckbox}
+                    checked={checked}
+                />
+                <p>Afegir</p>
+            </div>
+
+            {service.hasOptions && checked && (
+                <div className={styles.webOptions}>
+                    <WebOptions
+                        pages={pages}
+                        setPages={setPages}
+                        languages={languages}
+                        setLanguages={setLanguages}
+                    />
+                </div>
+            )}
+        </label>
+    );
+};
+
+export default Service;
+.container {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 2fr 1fr 1fr;
+    border: 4px solid var( --border-color);
+    border-radius: 15px;
+    padding: 30px 15px;
+    box-shadow: var(--shadow);
+}
+
+.selected {
+    border-color: var(--secondary-color);
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.info p {
+    font-size: 1rem;
+}
+
+.price {
+    font-weight: 800;
+    font-size: 1.7rem;
+}
+
+.inputDiv {
+    gap: 10px;
+    font-size: 1rem;
+}
+
+.webOptions {
+    grid-column: 2 / 4;
+    grid-row: 2;
+}
+.banner {
+    background-image: url("../../assets/images/banner.jpg");
+    background-size: cover;
+    min-height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: white;
+}
+import styles from "./Header.module.css";
+
+const Header: React.FC = () => {
+    return (
+        <header className={styles.banner}>
+            <h1>Aconsegueix la millor qualitat</h1>
+        </header>
+    );
+};
+
+export default Header;
