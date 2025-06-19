@@ -1,5 +1,6 @@
 import styles from "./BudgetCard.module.css";
 import shareIcon from "../../assets/images/share-icon.png";
+import { shareURL } from "../../utils/shareURL";
 
 interface Budget {
     id: Date;
@@ -22,7 +23,7 @@ const BudgetCard = ({ budget }: BudgetCardProps) => {
     return (
         <div className={styles.container}>
             <div className={styles.btnContainer}>
-                <button className={styles.button}>
+                <button className={styles.button} onClick={shareURL}>
                     <img src={shareIcon} alt="Compartir pressupost" />
                 </button>
             </div>
