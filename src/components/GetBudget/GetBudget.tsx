@@ -23,7 +23,6 @@ interface Selections {
 
 interface GetBudgetProps {
     total: number;
-    setTotal: React.Dispatch<React.SetStateAction<number>>;
     pages: number;
     setPages: React.Dispatch<React.SetStateAction<number>>;
     languages: number;
@@ -34,7 +33,6 @@ interface GetBudgetProps {
 
 const GetBudget = ({
     total,
-    setTotal,
     pages,
     setPages,
     languages,
@@ -132,12 +130,10 @@ const GetBudget = ({
         setClientPhone("");
         setClientEmail("");
         setError(null);
-        setTotal(0);
         resetForm({
             setSelections,
             setPages,
             setLanguages,
-            setTotal,
         });
     };
 

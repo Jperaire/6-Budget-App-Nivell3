@@ -5,6 +5,7 @@ interface DiscountContextType {
     toggleDiscount: () => void;
 }
 
-export const DiscountContext = createContext<DiscountContextType | undefined>(
-    undefined
-);
+export const DiscountContext = createContext<DiscountContextType>({
+    isDiscountActive: false,
+    toggleDiscount: () => {},
+});

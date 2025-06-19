@@ -1,43 +1,40 @@
 import styles from "./BudgetForm.module.css";
 import { services } from "../../data/services.ts";
 import Service from "../Service/Service.tsx";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { calculateTotal } from "../../utils/calculateTotal.ts";
 import GetBudget from "../GetBudget/GetBudget.tsx";
 import { DiscountContext } from "../../context/DiscountContext/DiscountContext";
+import { updateURL } from "../../utils/updateURL.ts";
+import { useNavigate } from "react-router-dom";
 
 interface Selections {
     [key: string]: boolean;
 }
 
 const BudgetForm: React.FC = () => {
-    const [selections, setSelections] = useState<Selections>({
-        Seo: false,
-        Ads: false,
-        Web: false,
-    });
+    const navigate = useNavigate();
 
-    const [total, setTotal] = useState<number>(0);
     const { isDiscountActive } = useContext(DiscountContext);
+
+    const [selections, setSelections] = useState<Selections>({});
     const [pages, setPages] = useState<number>(1);
     const [languages, setLanguages] = useState<number>(1);
 
-    useEffect(() => {
-        const newTotal = calculateTotal({
-            selections,
-            pages,
-            languages,
-            services,
-            isDiscountActive,
-        });
-        setTotal(newTotal);
-    }, [selections, pages, languages, isDiscountActive]);
+    const total = calculateTotal({
+        selections,
+        pages,
+        languages,
+        services,
+        isDiscountActive,
+    });
 
     const handleChange = (serviceTitle: string, checked: boolean) => {
         setSelections((prevSelections) => ({
             ...prevSelections,
             [serviceTitle]: checked,
         }));
+        updateURL(navigate, selections, pages, languages, isDiscountActive);
     };
 
     return (
@@ -48,7 +45,7 @@ const BudgetForm: React.FC = () => {
                         key={service.title}
                         service={service}
                         onChange={handleChange}
-                        checked={selections[service.title]}
+                        checked={selections[service.title] || false}
                         pages={pages}
                         setPages={setPages}
                         languages={languages}
@@ -64,7 +61,6 @@ const BudgetForm: React.FC = () => {
             </form>
             <GetBudget
                 total={total}
-                setTotal={setTotal}
                 pages={pages}
                 languages={languages}
                 selections={selections}

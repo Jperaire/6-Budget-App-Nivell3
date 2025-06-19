@@ -1,8 +1,14 @@
-.budget {
+.container {
     border: 1px solid var(--border-color);
     border-radius: 15px;
-    padding: 30px 15px;
+    padding: 20px 15px;
     box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.budget {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     font-size: 1rem;
@@ -25,4 +31,21 @@
 .thirdCol p {
     font-size: 1.5rem;
     font-weight: 800;
+}
+
+.btnContainer {
+    text-align: end;
+}
+
+.button {
+    border: none;
+    background-color: transparent;
+    width: fit-content;
+    margin: auto;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.button img {
+    width: 20px;
 }
