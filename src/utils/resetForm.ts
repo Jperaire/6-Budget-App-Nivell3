@@ -1,4 +1,3 @@
-// utils/resetForm.ts
 import { Dispatch, SetStateAction } from "react";
 
 interface Selections {

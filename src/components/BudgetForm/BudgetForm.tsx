@@ -1,25 +1,46 @@
 import styles from "./BudgetForm.module.css";
 import { services } from "../../data/services.ts";
 import Service from "../Service/Service.tsx";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { calculateTotal } from "../../utils/calculateTotal.ts";
 import GetBudget from "../GetBudget/GetBudget.tsx";
 import { DiscountContext } from "../../context/DiscountContext/DiscountContext";
-import { updateURL } from "../../utils/updateURL.ts";
-import { useNavigate } from "react-router-dom";
+import { createURL } from "../../utils/createURL.ts";
+import { useSearchParams } from "react-router-dom";
+import ShareIcon from "../ShareIcon/ShareIcon.tsx";
 
 interface Selections {
     [key: string]: boolean;
 }
 
 const BudgetForm: React.FC = () => {
-    const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
 
-    const { isDiscountActive } = useContext(DiscountContext);
+    const { isDiscountActive, setIsDiscountActive } =
+        useContext(DiscountContext);
 
-    const [selections, setSelections] = useState<Selections>({});
-    const [pages, setPages] = useState<number>(1);
-    const [languages, setLanguages] = useState<number>(1);
+    const initialSelections: Selections = {
+        Seo: searchParams.get("seo") === "true",
+        Ads: searchParams.get("ads") === "true",
+        Web: searchParams.get("web") === "true",
+    };
+
+    const initialPages = parseInt(searchParams.get("pages") || "1", 10);
+    const initialLanguages = parseInt(searchParams.get("languages") || "1", 10);
+    const discountFromURL = searchParams.get("discount") === "true";
+
+    const [selections, setSelections] = useState<Selections>(initialSelections);
+    const [pages, setPages] = useState<number>(
+        isNaN(initialPages) ? 1 : initialPages
+    );
+    const [languages, setLanguages] = useState<number>(
+        isNaN(initialLanguages) ? 1 : initialLanguages
+    );
+
+    useEffect(() => {
+        setIsDiscountActive(discountFromURL);
+        window.history.replaceState({}, "", "/budget");
+    }, [discountFromURL, setIsDiscountActive]);
 
     const total = calculateTotal({
         selections,
@@ -34,11 +55,22 @@ const BudgetForm: React.FC = () => {
             ...prevSelections,
             [serviceTitle]: checked,
         }));
-        updateURL(navigate, selections, pages, languages, isDiscountActive);
+    };
+
+    const handleShareURLClick = () => {
+        alert(
+            `Comparteix la teva selecció: ${createURL(
+                selections,
+                pages,
+                languages,
+                isDiscountActive
+            )}`
+        );
     };
 
     return (
         <div className={`${styles.container} flex-center`}>
+            <ShareIcon onClick={handleShareURLClick} />
             <form>
                 {services.map((service) => (
                     <Service

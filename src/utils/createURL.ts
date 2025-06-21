@@ -1,11 +1,8 @@
-import { useNavigate } from "react-router-dom";
-
 interface Selections {
     [key: string]: boolean;
 }
 
-export const updateURL = (
-    navigate: ReturnType<typeof useNavigate>,
+export const createURL = (
     selections: Selections,
     pages: number,
     languages: number,
@@ -20,5 +17,5 @@ export const updateURL = (
     queryParams.set("languages", languages.toString());
     queryParams.set("discount", discount ? "true" : "false");
 
-    navigate(`/budget?${queryParams.toString()}`);
+    return `http://localhost:5173/budget?${queryParams.toString()}`;
 };

@@ -2,10 +2,10 @@ import { createContext } from "react";
 
 interface DiscountContextType {
     isDiscountActive: boolean;
-    toggleDiscount: () => void;
+    setIsDiscountActive: (active: boolean) => void;
 }
 
 export const DiscountContext = createContext<DiscountContextType>({
     isDiscountActive: false,
-    toggleDiscount: () => {},
+    setIsDiscountActive: () => {},
 });

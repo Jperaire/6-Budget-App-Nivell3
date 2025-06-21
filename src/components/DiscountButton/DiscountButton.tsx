@@ -3,7 +3,8 @@ import { useContext } from "react";
 import { DiscountContext } from "../../context/DiscountContext/DiscountContext";
 
 const DiscountToggleButton = () => {
-    const { isDiscountActive, toggleDiscount } = useContext(DiscountContext);
+    const { isDiscountActive, setIsDiscountActive } =
+        useContext(DiscountContext);
 
     return (
         <div className={styles.container}>
@@ -14,7 +15,7 @@ const DiscountToggleButton = () => {
                     type="checkbox"
                     id="flexSwitchCheckDefault"
                     checked={isDiscountActive}
-                    onChange={toggleDiscount}
+                    onChange={() => setIsDiscountActive(!isDiscountActive)}
                 />
             </div>
             <p>Pagament anual</p>

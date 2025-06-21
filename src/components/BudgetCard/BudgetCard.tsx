@@ -1,6 +1,5 @@
 import styles from "./BudgetCard.module.css";
-import shareIcon from "../../assets/images/share-icon.png";
-import { shareURL } from "../../utils/shareURL";
+import ShareIcon from "../ShareIcon/ShareIcon";
 
 interface Budget {
     id: Date;
@@ -17,16 +16,38 @@ interface Budget {
 
 interface BudgetCardProps {
     budget: Budget;
+    isShareable?: boolean;
 }
 
-const BudgetCard = ({ budget }: BudgetCardProps) => {
+const BudgetCard = ({ budget, isShareable = true }: BudgetCardProps) => {
+    const handleShareCard = () => {
+        const { name, email, phone, total, seo, ads, web, pages, languages } =
+            budget;
+
+        const params = new URLSearchParams({
+            name,
+            email,
+            phone,
+            total: total.toString(),
+            seo: seo.toString(),
+            ads: ads.toString(),
+            web: web.toString(),
+            pages: pages.toString(),
+            languages: languages.toString(),
+        });
+
+        const url = `${
+            window.location.origin
+        }/budget/view?${params.toString()}`;
+
+        navigator.clipboard.writeText(url);
+
+        alert("Pressupost copiat!");
+    };
+
     return (
         <div className={styles.container}>
-            <div className={styles.btnContainer}>
-                <button className={styles.button} onClick={shareURL}>
-                    <img src={shareIcon} alt="Compartir pressupost" />
-                </button>
-            </div>
+            {isShareable && <ShareIcon onClick={handleShareCard} />}
             <div className={styles.budget}>
                 <div className={styles.firstCol}>
                     <h3>{budget.name}</h3>

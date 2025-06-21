@@ -10,12 +10,10 @@ export const DiscountProvider: React.FC<DiscountProviderProps> = ({
 }) => {
     const [isDiscountActive, setIsDiscountActive] = useState<boolean>(false);
 
-    const toggleDiscount = () => {
-        setIsDiscountActive((prev) => !prev);
-    };
-
     return (
-        <DiscountContext.Provider value={{ isDiscountActive, toggleDiscount }}>
+        <DiscountContext.Provider
+            value={{ isDiscountActive, setIsDiscountActive }}
+        >
             {children}
         </DiscountContext.Provider>
     );

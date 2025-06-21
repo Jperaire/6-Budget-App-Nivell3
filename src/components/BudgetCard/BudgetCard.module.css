@@ -32,19 +32,3 @@
     font-size: 1.5rem;
     font-weight: 800;
 }
-
-.btnContainer {
-    text-align: end;
-}
-
-.button {
-    border: none;
-    background-color: transparent;
-    width: fit-content;
-    margin: auto;
-    cursor: pointer;
-}
-
-.button img {
-    width: 20px;
-}
